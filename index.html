@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Preferences</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1 id="title">User Preferences</h1>
+        
+        
+        <div class="preference-section">
+            <h2 id="theme-title">Theme</h2>
+            <button id="toggle-theme">Toggle Theme</button>
+            <p id="current-theme">Current theme: Light</p>
+        </div>
+        
+        
+        <div class="preference-section">
+            <h2 id="font-title">Font Size</h2>
+            <div class="font-controls">
+                <input type="range" id="font-slider" min="12" max="32" value="16">
+                <span id="font-value">16px</span>
+                <select id="font-unit">
+                    <option value="px">px</option>
+                    <option value="em">em</option>
+                    <option value="rem">rem</option>
+                </select>
+            </div>
+        </div>
+        
+        
+        <div class="preference-section">
+            <h2 id="language-title">Language</h2>
+            <button id="toggle-language">Toggle Language (English/Spanish)</button>
+        </div>
+        
+        
+        <div class="preference-section">
+            <h2 id="profile-title">Profile Management</h2>
+            <div class="profile-controls">
+                <input type="text" id="profile-name" placeholder="Profile name">
+                <button id="save-profile">Save Profile</button>
+                <select id="profile-selector"></select>
+                <button id="load-profile">Load Profile</button>
+                <button id="export-profile">Export Profile</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
