@@ -1,5 +1,4 @@
 
-// Language translations
 const translations = {
     en: {
         title: "User Preferences",
@@ -41,7 +40,7 @@ const translations = {
     }
 };
 
-// DOM Elements
+
 const elements = {
     body: document.body,
     title: document.getElementById('title'),
@@ -62,7 +61,7 @@ const elements = {
     exportProfileBtn: document.getElementById('export-profile')
 };
 
-// Current state
+
 let currentState = {
     theme: 'light',
     fontSize: 16,
@@ -71,14 +70,14 @@ let currentState = {
     profiles: {}
 };
 
-// Initialize the page
+
 function init() {
     loadPreferences();
     setupEventListeners();
     updateUI();
 }
 
-// Load preferences from localStorage
+
 function loadPreferences() {
     const savedTheme = localStorage.getItem('theme');
     const savedFontSize = localStorage.getItem('fontSize');
@@ -92,15 +91,13 @@ function loadPreferences() {
     if (savedLanguage) currentState.language = savedLanguage;
     if (savedProfiles) currentState.profiles = JSON.parse(savedProfiles);
 
-    // Update font slider and unit selector
     elements.fontSlider.value = currentState.fontSize;
     elements.fontUnit.value = currentState.fontUnit;
     
-    // Update profile selector
     updateProfileSelector();
 }
 
-// Save preferences to localStorage
+
 function savePreferences() {
     localStorage.setItem('theme', currentState.theme);
     localStorage.setItem('fontSize', currentState.fontSize.toString());
@@ -109,40 +106,40 @@ function savePreferences() {
     localStorage.setItem('profiles', JSON.stringify(currentState.profiles));
 }
 
-// Set up event listeners
+
 function setupEventListeners() {
-    // Theme toggle
+   
     elements.toggleThemeBtn.addEventListener('click', toggleTheme);
     
-    // Font size controls
+   
     elements.fontSlider.addEventListener('input', updateFontSize);
     elements.fontUnit.addEventListener('change', updateFontUnit);
     
-    // Language toggle
+    
     elements.toggleLanguageBtn.addEventListener('click', toggleLanguage);
     
-    // Profile management
+   
     elements.saveProfileBtn.addEventListener('click', saveProfile);
     elements.loadProfileBtn.addEventListener('click', loadProfile);
     elements.exportProfileBtn.addEventListener('click', exportProfile);
 }
 
-// Update the UI based on current state
+
 function updateUI() {
-    // Theme
+    
     elements.body.className = currentState.theme === 'dark' ? 'dark-mode' : '';
     elements.currentTheme.textContent = translations[currentState.language].currentTheme + 
                                       translations[currentState.language][currentState.theme];
     
-    // Font size
+   
     elements.fontValue.textContent = `${currentState.fontSize}${currentState.fontUnit}`;
     document.body.style.fontSize = `${currentState.fontSize}${currentState.fontUnit}`;
     
-    // Language
+ 
     applyTranslations();
 }
 
-// Apply translations to all elements
+
 function applyTranslations() {
     const lang = translations[currentState.language];
     elements.title.textContent = lang.title;
@@ -157,39 +154,38 @@ function applyTranslations() {
     elements.loadProfileBtn.textContent = lang.loadProfile;
     elements.exportProfileBtn.textContent = lang.exportProfile;
     
-    // Update current theme text
     elements.currentTheme.textContent = lang.currentTheme + lang[currentState.theme];
 }
 
-// Toggle between light and dark theme
+
 function toggleTheme() {
     currentState.theme = currentState.theme === 'light' ? 'dark' : 'light';
     savePreferences();
     updateUI();
 }
 
-// Update font size based on slider
+
 function updateFontSize() {
     currentState.fontSize = parseInt(elements.fontSlider.value);
     savePreferences();
     updateUI();
 }
 
-// Update font unit
+
 function updateFontUnit() {
     currentState.fontUnit = elements.fontUnit.value;
     savePreferences();
     updateUI();
 }
 
-// Toggle between English and Spanish
+
 function toggleLanguage() {
     currentState.language = currentState.language === 'en' ? 'es' : 'en';
     savePreferences();
     updateUI();
 }
 
-// Update profile selector dropdown
+
 function updateProfileSelector() {
     elements.profileSelector.innerHTML = '';
     
@@ -201,7 +197,7 @@ function updateProfileSelector() {
     }
 }
 
-// Save current preferences as a profile
+
 function saveProfile() {
     const profileName = elements.profileName.value.trim();
     if (!profileName) return;
@@ -220,7 +216,7 @@ function saveProfile() {
     alert(translations[currentState.language].profileSaved);
 }
 
-// Load a saved profile
+
 function loadProfile() {
     const profileName = elements.profileSelector.value;
     if (!profileName || !currentState.profiles[profileName]) return;
@@ -231,7 +227,7 @@ function loadProfile() {
     currentState.fontUnit = profile.fontUnit;
     currentState.language = profile.language;
     
-    // Update UI elements
+    
     elements.fontSlider.value = currentState.fontSize;
     elements.fontUnit.value = currentState.fontUnit;
     
@@ -241,7 +237,7 @@ function loadProfile() {
     alert(translations[currentState.language].profileLoaded);
 }
 
-// Export current profile
+
 function exportProfile() {
     const confirmation = confirm(translations[currentState.language].exportConfirmation);
     if (!confirmation) return;
@@ -264,5 +260,5 @@ function exportProfile() {
     linkElement.click();
 }
 
-// Initialize the application
+
 init();
